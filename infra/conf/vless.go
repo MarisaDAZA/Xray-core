@@ -333,11 +333,11 @@ func (c *VLessOutboundConfig) Build() (proto.Message, error) {
 			    if account.Reverse.Tag == "" {
 					return nil, errors.New(`VLESS clients: "tag" can't be empty for "reverse"`)
 				}
-				if account.Reverse.heartbeatPeriod == 0 {
-					account.Reverse.heartbeatPeriod = 10
+				if account.Reverse.HeartbeatPeriod == 0 {
+					account.Reverse.HeartbeatPeriod = 10
 				}
-				if account.Reverse.heartbeatPadding == 0 {
-					account.Reverse.heartbeatPadding = 64
+				if account.Reverse.HeartbeatPadding == 0 {
+					account.Reverse.HeartbeatPadding = 64
 				}
 			}
 
