@@ -10,7 +10,18 @@ import (
 
 // AsAccount implements protocol.Account.AsAccount().
 func (a *Account) AsAccount() (protocol.Account, error) {
-	account = &MemoryAccount{
+	id, err := uuid.ParseString(a.Id)
+	if err != nil {
+		return nil, errors.New("failed to parse ID").Base(err).AtError()
+	}
+
+	if a.Reverse.HeartbeatPeriod == 0 {
+		a.Reverse.HeartbeatPeriod = 10
+	}
+	if a.Reverse.HeartbeatPadding == 0 {
+		a.Reverse.HeartbeatPadding = 64
+	}
+	return &MemoryAccount{
 		ID:         protocol.NewID(id),
 		Flow:       a.Flow,       // needs parser here?
 		Encryption: a.Encryption, // needs parser here?
@@ -20,18 +31,7 @@ func (a *Account) AsAccount() (protocol.Account, error) {
 		Reverse:    a.Reverse,
 		Testpre:    a.Testpre,
 		Testseed:   a.Testseed,
-	}
-	id, err := uuid.ParseString(a.Id)
-	if err != nil {
-		return nil, errors.New("failed to parse ID").Base(err).AtError()
-	}
-	if account.Reverse.HeartbeatPeriod == 0 {
-		account.Reverse.HeartbeatPeriod = 10
-	}
-	if account.Reverse.HeartbeatPadding == 0 {
-		account.Reverse.HeartbeatPadding = 64
-	}
-	return account, nil
+	}, nil
 }
 
 // MemoryAccount is an in-memory form of VLess account.
