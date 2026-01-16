@@ -14,11 +14,13 @@ func (a *Account) AsAccount() (protocol.Account, error) {
 	if err != nil {
 		return nil, errors.New("failed to parse ID").Base(err).AtError()
 	}
-	if a.Reverse.HeartbeatPeriod == 0 {
-		a.Reverse.HeartbeatPeriod = 10
-	}
-	if a.Reverse.HeartbeatPadding == 0 {
-		a.Reverse.HeartbeatPadding = 64
+	if a.Reverse != nil {
+		if a.Reverse.HeartbeatPeriod == 0 {
+			a.Reverse.HeartbeatPeriod = 10
+		}
+		if a.Reverse.HeartbeatPadding == 0 {
+			a.Reverse.HeartbeatPadding = 64
+		}
 	}
 	return &MemoryAccount{
 		ID:         protocol.NewID(id),
