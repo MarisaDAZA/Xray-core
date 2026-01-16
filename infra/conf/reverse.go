@@ -25,26 +25,24 @@ type PortalConfig struct {
 }
 
 func (c *PortalConfig) Build() (*reverse.PortalConfig, error) {
-	config := &reverse.PortalConfig{
-		Tag:              c.Tag,
-		Domain:           c.Domain,
-		HeartbeatPeriod:  c.HeartbeatPeriod,
-		HeartbeatPadding: c.HeartbeatPadding,
-	}
-
 	if c.HeartbeatPeriod == 0 {
-		config.HeartbeatPeriod = 10
+		HeartbeatPeriod := 10
 	} else {
-		config.HeartbeatPeriod = c.HeartbeatPeriod
+		HeartbeatPeriod := c.HeartbeatPeriod
 	}
 
 	if c.HeartbeatPadding == 0 {
-		config.HeartbeatPadding = 64
+		HeartbeatPadding := 64
 	} else {
-		config.HeartbeatPadding = c.HeartbeatPadding
+		HeartbeatPadding := c.HeartbeatPadding
 	}
 
-	return config, nil
+	return &reverse.PortalConfig{
+		Tag:              c.Tag,
+		Domain:           c.Domain,
+		HeartbeatPeriod:  HeartbeatPeriod,
+		HeartbeatPadding: HeartbeatPadding,
+	}, nil
 }
 
 type ReverseConfig struct {
