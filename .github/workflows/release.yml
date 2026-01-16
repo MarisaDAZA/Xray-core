@@ -53,24 +53,24 @@ jobs:
             fi
           done
 
-      - name: Trigger Asset Update Workflow if Assets Missing
-        if: steps.check-assets.outputs.missing == 'true'
-        uses: actions/github-script@v8
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const { owner, repo } = context.repo;
-            await github.rest.actions.createWorkflowDispatch({
-              owner,
-              repo,
-              workflow_id: 'scheduled-assets-update.yml',
-              ref: context.ref
-            });
-            console.log('Triggered scheduled-assets-update.yml due to missing assets on branch:', context.ref);
+      # - name: Trigger Asset Update Workflow if Assets Missing
+      #   if: steps.check-assets.outputs.missing == 'true'
+      #   uses: actions/github-script@v8
+      #   with:
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      #     script: |
+      #       const { owner, repo } = context.repo;
+      #       await github.rest.actions.createWorkflowDispatch({
+      #         owner,
+      #         repo,
+      #         workflow_id: 'scheduled-assets-update.yml',
+      #         ref: context.ref
+      #       });
+      #       console.log('Triggered scheduled-assets-update.yml due to missing assets on branch:', context.ref);
 
-      - name: Sleep for 90 seconds if Assets Missing
-        if: steps.check-assets.outputs.missing == 'true'
-        run: sleep 90
+      # - name: Sleep for 90 seconds if Assets Missing
+      #   if: steps.check-assets.outputs.missing == 'true'
+      #   run: sleep 90
 
   build:
     needs: check-assets
@@ -276,14 +276,14 @@ jobs:
             openssl dgst -$METHOD $FILE | sed 's/([^)]*)//g' >>$DGST
           done
 
-      - name: Upload binaries to release
-        uses: svenstaro/upload-release-action@v2
-        if: github.event_name == 'release'
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./Xray-${{ env.ASSET_NAME }}.zip*
-          tag: ${{ github.ref }}
-          file_glob: true
+      # - name: Upload binaries to release
+      #   uses: svenstaro/upload-release-action@v2
+      #   if: github.event_name == 'release'
+      #   with:
+      #     repo_token: ${{ secrets.GITHUB_TOKEN }}
+      #     file: ./Xray-${{ env.ASSET_NAME }}.zip*
+      #     tag: ${{ github.ref }}
+      #     file_glob: true
 
       - name: Upload files to Artifacts
         uses: actions/upload-artifact@v6
