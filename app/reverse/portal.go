@@ -226,15 +226,15 @@ func (p *StaticMuxPicker) AddWorker(worker *PortalWorker) {
 }
 
 type PortalWorker struct {
-	client           *mux.ClientWorker
-	control          *task.Periodic
-	writer           buf.Writer
-	reader           buf.Reader
-	draining         bool
-	counter          uint32
-	timer            *signal.ActivityTimer
-	heartbeatPeriod  uint32
-	heartbeatPadding uint32
+	client   *mux.ClientWorker
+	control  *task.Periodic
+	writer   buf.Writer
+	reader   buf.Reader
+	draining bool
+	counter  uint32
+	timer    *signal.ActivityTimer
+	period   uint32
+	padding  uint32
 }
 
 func NewPortalWorker(client *mux.ClientWorker, heartbeatPeriod uint32, heartbeatPadding uint32) (*PortalWorker, error) {

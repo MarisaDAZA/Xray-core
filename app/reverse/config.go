@@ -8,7 +8,7 @@ import (
 )
 
 func (c *Control) FillInRandom(padding uint32) {
-	randomLength := dice.Roll(padding)
+	randomLength := dice.Roll(int(padding))
 	randomLength++
 	c.Random = make([]byte, randomLength)
 	io.ReadFull(rand.Reader, c.Random)
