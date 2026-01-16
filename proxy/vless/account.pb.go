@@ -24,7 +24,7 @@ const (
 type Reverse struct {
 	state            protoimpl.MessageState `protogen:"open.v1"`
 	Tag              string                 `protobuf:"bytes,1,opt,name=tag,proto3" json:"tag,omitempty"`
-	HeartbeatPriod   uint32                 `protobuf:"varint,2,opt,name=heartbeatPriod,proto3" json:"heartbeatPriod,omitempty"`
+	HeartbeatPeriod  uint32                 `protobuf:"varint,2,opt,name=heartbeatPeriod,proto3" json:"heartbeatPeriod,omitempty"`
 	HeartbeatPadding uint32                 `protobuf:"varint,3,opt,name=heartbeatPadding,proto3" json:"heartbeatPadding,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
@@ -67,9 +67,9 @@ func (x *Reverse) GetTag() string {
 	return ""
 }
 
-func (x *Reverse) GetHeartbeatPriod() uint32 {
+func (x *Reverse) GetHeartbeatPeriod() uint32 {
 	if x != nil {
-		return x.HeartbeatPriod
+		return x.HeartbeatPeriod
 	}
 	return 0
 }
@@ -195,10 +195,10 @@ var File_proxy_vless_account_proto protoreflect.FileDescriptor
 
 const file_proxy_vless_account_proto_rawDesc = "" +
 	"\n" +
-	"\x19proxy/vless/account.proto\x12\x10xray.proxy.vless\"o\n" +
+	"\x19proxy/vless/account.proto\x12\x10xray.proxy.vless\"q\n" +
 	"\aReverse\x12\x10\n" +
-	"\x03tag\x18\x01 \x01(\tR\x03tag\x12&\n" +
-	"\x0eheartbeatPriod\x18\x02 \x01(\rR\x0eheartbeatPriod\x12*\n" +
+	"\x03tag\x18\x01 \x01(\tR\x03tag\x12(\n" +
+	"\x0fheartbeatPeriod\x18\x02 \x01(\rR\x0fheartbeatPeriod\x12*\n" +
 	"\x10heartbeatPadding\x18\x03 \x01(\rR\x10heartbeatPadding\"\x86\x02\n" +
 	"\aAccount\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
