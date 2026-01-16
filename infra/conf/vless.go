@@ -330,6 +330,7 @@ func (c *VLessOutboundConfig) Build() (proto.Message, error) {
 			}
 
 			if account.Reverse != nil {
+				errors.LogDebug(account.Reverse.HeartbeatPeriod, account.Reverse.HeartbeatPadding)
 			    if account.Reverse.Tag == "" {
 					return nil, errors.New(`VLESS clients: "tag" can't be empty for "reverse"`)
 				}
