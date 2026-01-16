@@ -202,8 +202,8 @@ func (h *Handler) GetReverse(a *vless.MemoryAccount) (*Reverse, error) {
 			tag:              a.Reverse.Tag,
 			picker:           picker,
 			client:           &mux.ClientManager{Picker: picker},
-			heartbeatPeriod:  a.Reverse.heartbeatPeriod,
-			heartbeatPadding: a.Reverse.heartbeatPadding,
+			heartbeatPeriod:  a.Reverse.HeartbeatPeriod,
+			heartbeatPadding: a.Reverse.HeartbeatPadding,
 		}
 		for len(h.outboundHandlerManager.ListHandlers(h.ctx)) == 0 {
 			time.Sleep(time.Second) // prevents this outbound from becoming the default outbound
@@ -659,7 +659,7 @@ func (r *Reverse) NewMux(ctx context.Context, link *transport.Link) error {
 	if err != nil {
 		return errors.New("failed to create mux client worker").Base(err).AtWarning()
 	}
-	worker, err := reverse.NewPortalWorker(muxClien, r.heartbeatPeriod, r.heartbeatPadding)
+	worker, err := reverse.NewPortalWorker(muxClient, r.heartbeatPeriod, r.heartbeatPadding)
 	if err != nil {
 		return errors.New("failed to create portal worker").Base(err).AtWarning()
 	}
