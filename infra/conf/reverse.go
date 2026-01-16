@@ -18,15 +18,33 @@ func (c *BridgeConfig) Build() (*reverse.BridgeConfig, error) {
 }
 
 type PortalConfig struct {
-	Tag    string `json:"tag"`
-	Domain string `json:"domain"`
+	Tag              string `json:"tag"`
+	Domain           string `json:"domain"`
+	HeartbeatPeriod  uint32 `json:"heartbeatPeriod"`
+	HeartbeatPadding uint32 `json:"heartbeatPadding"`
 }
 
 func (c *PortalConfig) Build() (*reverse.PortalConfig, error) {
-	return &reverse.PortalConfig{
-		Tag:    c.Tag,
-		Domain: c.Domain,
-	}, nil
+	config := &reverse.PortalConfig{
+		Tag:              c.Tag,
+		Domain:           c.Domain,
+		HeartbeatPeriod:  c.HeartbeatPeriod,
+		HeartbeatPadding: c.HeartbeatPadding,
+	}
+
+	if c.HeartbeatPeriod == 0 {
+		config.HeartbeatPeriod = 10
+	} else {
+		config.HeartbeatPeriod = c.HeartbeatPeriod
+	}
+
+	if c.HeartbeatPadding == 0 {
+		config.HeartbeatPadding = 64
+	} else {
+		config.HeartbeatPadding = c.HeartbeatPadding
+	}
+
+	return config, nil
 }
 
 type ReverseConfig struct {

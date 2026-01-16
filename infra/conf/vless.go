@@ -329,8 +329,16 @@ func (c *VLessOutboundConfig) Build() (proto.Message, error) {
 				return nil, errors.New(`VLESS users: unsupported "encryption": ` + account.Encryption)
 			}
 
-			if account.Reverse != nil && account.Reverse.Tag == "" {
-				return nil, errors.New(`VLESS clients: "tag" can't be empty for "reverse"`)
+			if account.Reverse != nil {
+			    if account.Reverse.Tag == "" {
+					return nil, errors.New(`VLESS clients: "tag" can't be empty for "reverse"`)
+				}
+				if account.Reverse.heartbeatPeriod == 0 {
+					account.Reverse.heartbeatPeriod = 10
+				}
+				if account.Reverse.heartbeatPadding == 0 {
+					account.Reverse.heartbeatPadding = 64
+				}
 			}
 
 			user.Account = serial.ToTypedMessage(account)
