@@ -187,6 +187,7 @@ func isMuxAndNotXUDP(request *protocol.RequestHeader, first *buf.Buffer) bool {
 }
 
 func (h *Handler) GetReverse(a *vless.MemoryAccount) (*Reverse, error) {
+	errors.LogInfo(h.ctx, "GetReverse()", a.Reverse.Tag, a.Reverse.HeartbeatPeriod, a.Reverse.HeartbeatPadding)
 	u := h.validator.Get(a.ID.UUID())
 	if u == nil {
 		return nil, errors.New("reverse: user " + a.ID.String() + " doesn't exist anymore")
@@ -540,6 +541,9 @@ func (h *Handler) Process(ctx context.Context, network net.Network, connection s
 	inbound.VlessRoute = net.PortFromBytes(userSentID[6:8])
 
 	account := request.User.Account.(*vless.MemoryAccount)
+
+	errors.LogInfo(h.ctx, "Process()", account.Reverse.Tag, account.Reverse.HeartbeatPeriod, account.Reverse.HeartbeatPadding)
+
 
 	if account.Reverse != nil && request.Command != protocol.RequestCommandRvs {
 		return errors.New("for safety reasons, user " + account.ID.String() + " is not allowed to use forward proxy")
