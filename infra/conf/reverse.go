@@ -29,7 +29,7 @@ func (c *PortalConfig) Build() (*reverse.PortalConfig, error) {
 		c.HeartbeatPeriod = 10
 	}
 	if c.HeartbeatPadding == 0 {
-		c.HeartbeatPadding := 64
+		c.HeartbeatPadding = 64
 	}
 
 	return &reverse.PortalConfig{

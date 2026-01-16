@@ -14,7 +14,6 @@ func (a *Account) AsAccount() (protocol.Account, error) {
 	if err != nil {
 		return nil, errors.New("failed to parse ID").Base(err).AtError()
 	}
-
 	if a.Reverse.HeartbeatPeriod == 0 {
 		a.Reverse.HeartbeatPeriod = 10
 	}
