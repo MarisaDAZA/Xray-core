@@ -1,7 +1,10 @@
-为反向代理的portal和 VLESS的极简反向代理reverse新增两个参数
-heartbeatPeriod可以控制发送心跳包的间隔时间
-heartbeatPadding可以控制随机padding数据的最大长度
-不填默认是10和64，与原来一样
+为反向代理的`portal`和 VLESS的极简反向代理`reverse`新增两个参数
+
+`heartbeatPeriod`可以控制发送心跳包的间隔时间
+
+`heartbeatPadding`可以控制随机padding数据的最大长度
+
+不填默认是`10`和`64`，与原来一样
 
 ---
 
