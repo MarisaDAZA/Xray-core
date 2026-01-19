@@ -254,7 +254,7 @@ jobs:
               mv resources/wintun/bin/arm/wintun.dll build_assets/
             fi
             mv resources/wintun/LICENSE.txt build_assets/LICENSE-wintun.txt
-         fi
+          fi
 
       - name: Copy README.md & LICENSE
         run: |
