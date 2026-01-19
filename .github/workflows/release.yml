@@ -222,39 +222,39 @@ jobs:
             fi
           fi
 
-      # - name: Restore Geodat Cache
-      #   uses: actions/cache/restore@v5
-      #   with:
-      #     path: resources
-      #     key: xray-geodat-
+      - name: Restore Geodat Cache
+        uses: actions/cache/restore@v5
+        with:
+          path: resources
+          key: xray-geodat-
 
-      # - name: Restore Wintun Cache
-      #   if: matrix.goos == 'windows'
-      #   uses: actions/cache/restore@v5
-      #   with:
-      #     path: resources
-      #     key: xray-wintun-
+      - name: Restore Wintun Cache
+        if: matrix.goos == 'windows'
+        uses: actions/cache/restore@v5
+        with:
+          path: resources
+          key: xray-wintun-
 
-      # - name: Add additional assets into package
-      #   run: |
-      #     mv -f resources/geo* build_assets/
-      #     if [[ ${GOOS} == 'windows' ]]; then
-      #       echo 'CreateObject("Wscript.Shell").Run "xray.exe -config config.json",0' > build_assets/xray_no_window.vbs
-      #       echo 'Start-Process -FilePath ".\xray.exe" -ArgumentList "-config .\config.json" -WindowStyle Hidden' > build_assets/xray_no_window.ps1
-      #       if [[ ${GOARCH} == 'amd64' ]]; then
-      #         mv resources/wintun/bin/amd64/wintun.dll build_assets/
-      #       fi
-      #       if [[ ${GOARCH} == '386' ]]; then
-      #         mv resources/wintun/bin/x86/wintun.dll build_assets/
-      #       fi
-      #       if [[ ${GOARCH} == 'arm64' ]]; then
-      #         mv resources/wintun/bin/arm64/wintun.dll build_assets/
-      #       fi
-      #       if [[ ${GOARCH} == 'arm' ]]; then
-      #         mv resources/wintun/bin/arm/wintun.dll build_assets/
-      #       fi
-      #       mv resources/wintun/LICENSE.txt build_assets/LICENSE-wintun.txt
-      #    fi
+      - name: Add additional assets into package
+        run: |
+          mv -f resources/geo* build_assets/
+          if [[ ${GOOS} == 'windows' ]]; then
+            echo 'CreateObject("Wscript.Shell").Run "xray.exe -config config.json",0' > build_assets/xray_no_window.vbs
+            echo 'Start-Process -FilePath ".\xray.exe" -ArgumentList "-config .\config.json" -WindowStyle Hidden' > build_assets/xray_no_window.ps1
+            if [[ ${GOARCH} == 'amd64' ]]; then
+              mv resources/wintun/bin/amd64/wintun.dll build_assets/
+            fi
+            if [[ ${GOARCH} == '386' ]]; then
+              mv resources/wintun/bin/x86/wintun.dll build_assets/
+            fi
+            if [[ ${GOARCH} == 'arm64' ]]; then
+              mv resources/wintun/bin/arm64/wintun.dll build_assets/
+            fi
+            if [[ ${GOARCH} == 'arm' ]]; then
+              mv resources/wintun/bin/arm/wintun.dll build_assets/
+            fi
+            mv resources/wintun/LICENSE.txt build_assets/LICENSE-wintun.txt
+         fi
 
       - name: Copy README.md & LICENSE
         run: |
